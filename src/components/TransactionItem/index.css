@@ -1,0 +1,12 @@
+/* Write your CSS here */
+.history-container {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+}
+.history-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 1px solid #d7dfe9;
+}
