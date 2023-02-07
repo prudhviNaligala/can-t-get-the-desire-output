@@ -27,6 +27,15 @@ class MoneyManager extends Component {
     optionId: transactionTypeOptions[0].optionId,
   }
 
+  onDeleteList = id => {
+    const {transactionList} = this.state
+    const filteredList = transactionList.filter(eachList => eachList.id !== id)
+
+    this.setState({
+      transactionList: filteredList,
+    })
+  }
+
   onAddTransaction = event => {
     event.preventDefault()
     const {titleInput, amountInput, optionId} = this.state
@@ -41,7 +50,6 @@ class MoneyManager extends Component {
       amount: parseInt(amountInput),
       type: displayText,
     }
-
     this.setState(prevState => ({
       transactionList: [...prevState.transactionList, newTransactionList],
       titleInput: '',
@@ -130,13 +138,16 @@ class MoneyManager extends Component {
                   className="input"
                   id="title"
                   type="text"
+                  placeholder="TITLE"
                   onChange={this.onChangeTitleInput}
                 />
                 <label htmlFor="amount">amount</label>
                 <input
                   className="input"
                   id="amount"
+                  data-testid="balanceAmount"
                   type="text"
+                  placeholder="AMOUNT"
                   onChange={this.onChangeAmountInput}
                 />
                 <label htmlFor="type">Type</label>
@@ -146,12 +157,14 @@ class MoneyManager extends Component {
                   id="type"
                 >
                   {transactionTypeOptions.map(eachItem => (
-                    <option key={eachItem.optionId}>
+                    <option key={eachItem.optionId} value={eachItem.optionId}>
                       {eachItem.displayText}
                     </option>
                   ))}
                 </select>
-                <button type="submit">Add</button>
+                <button className="button" type="submit">
+                  Add
+                </button>
               </form>
             </div>
           </div>
@@ -159,12 +172,16 @@ class MoneyManager extends Component {
             <h1>History</h1>
             <ul>
               <li className="history-details">
-                <p>Title</p>
-                <p>Amount</p>
-                <p>Type</p>
+                <p className="text amount">Title</p>
+                <p className="amount">Amount</p>
+                <p className="text">Type</p>
               </li>
               {transactionList.map(eachList => (
-                <TransactionItem key={eachList.id} />
+                <TransactionItem
+                  key={eachList.id}
+                  transactionDetails={eachList}
+                  deleteTransaction={this.onDeleteList}
+                />
               ))}
             </ul>
           </div>
