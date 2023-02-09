@@ -140,14 +140,15 @@ class MoneyManager extends Component {
                   type="text"
                   placeholder="TITLE"
                   onChange={this.onChangeTitleInput}
+                  value={titleInput}
                 />
                 <label htmlFor="amount">amount</label>
                 <input
                   className="input"
                   id="amount"
-                  data-testid="balanceAmount"
                   type="text"
                   placeholder="AMOUNT"
+                  value={amountInput}
                   onChange={this.onChangeAmountInput}
                 />
                 <label htmlFor="type">Type</label>
@@ -157,7 +158,10 @@ class MoneyManager extends Component {
                   id="type"
                 >
                   {transactionTypeOptions.map(eachItem => (
-                    <option key={eachItem.optionId} value={eachItem.optionId}>
+                    <option
+                      key={eachItem.displayText}
+                      value={eachItem.optionId}
+                    >
                       {eachItem.displayText}
                     </option>
                   ))}
@@ -170,7 +174,7 @@ class MoneyManager extends Component {
           </div>
           <div className="transaction-history">
             <h1>History</h1>
-            <ul>
+            <ul className="un-order">
               <li className="history-details">
                 <p className="text amount">Title</p>
                 <p className="amount">Amount</p>

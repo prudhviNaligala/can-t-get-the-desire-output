@@ -73,3 +73,6 @@
 .amount {
   margin-right: 150px;
 }
+.un-order {
+  list-style-type: none;
+}
